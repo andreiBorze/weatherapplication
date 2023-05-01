@@ -10,33 +10,23 @@ import {
   SectionTitle,
   ButtonContainer,
   NextButton,
+  PaginationContainer,
 } from "./styled";
+import ReactPaginate from "react-paginate";
 
-interface Props {
-  subject?: string;
-  sortBy?: string;
-}
-
-const CurrentNews: React.FC<Props> = () => {
-  const {
-    news,
-    isInitial,
-    subject,
-    country,
-    sortBy,
-    selectedMethod,
-    pageSize,
-  } = useSelector((state: AppStore) => ({
-    isInitial: state.app.isInitial,
-    news: state.news,
-    subject: state.news.subject,
-    country: state.news.country,
-    sortBy: state.news.sortBy,
-    pageSize: state.news.pageSize,
-    selectedMethod: state.news.selectedMethod,
+const CurrentNews: React.FC = () => {
+  const { news, isInitial, subject, country, sortBy, selectedMethod, pageSize } = useSelector((store: AppStore) => ({
+    isInitial: store.app.isInitial,
+    news: store.news,
+    subject: store.news.subject,
+    country: store.news.country,
+    sortBy: store.news.sortBy,
+    pageSize: store.news.pageSize,
+    selectedMethod: store.news.selectedMethod,
   }));
-  const [currentPage, setCurrentPage] = useState<number>(1);
+
   const dispatch = useDispatch();
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   useEffect(() => {
     dispatch(
@@ -51,6 +41,7 @@ const CurrentNews: React.FC<Props> = () => {
     );
   }, [currentPage, subject, sortBy]);
 
+  if (isInitial) return <></>;
   return (
     <NewsContainer>
       <SectionTitle>Total results: {news.newsData?.totalResults}</SectionTitle>
@@ -59,6 +50,18 @@ const CurrentNews: React.FC<Props> = () => {
           return <Article key={i} value={item} />;
         })}
       </NewsItems>
+      <PaginationContainer>
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel="Next"
+          onPageChange={(selected) => setCurrentPage(selected.selected + 1)}
+          pageRangeDisplayed={5}
+          pageCount={Math.ceil((news.newsData?.totalResults ?? 0) / pageSize)}
+          previousLabel="Previous"
+          containerClassName="pagination"
+          activeClassName="active"
+        />
+      </PaginationContainer>
     </NewsContainer>
   );
 };

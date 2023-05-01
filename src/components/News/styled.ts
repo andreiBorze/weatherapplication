@@ -220,3 +220,41 @@ export const BackButtonContainer = styled.div`
     outline: none;
   }
 `;
+
+
+
+export const PaginationContainer = styled.div`
+display: flex;
+justify-content: center;
+margin-top: 1rem;
+
+ul {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  margin: 0 0.25rem;
+}
+
+a {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  text-decoration: none;
+  color: #333;
+  transition: background-color 0.3s ease;
+}
+
+a:hover {
+  background-color: #f5f5f5;
+}
+
+.active a {
+  background-color: #333;
+  color: #fff;
+}
+`;

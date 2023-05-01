@@ -4,7 +4,6 @@ import { DebounceInput } from "react-debounce-input";
 import { fetchNews } from "../../../store/fetchNews";
 import { PayloadAction } from "@reduxjs/toolkit";
 import {
-  ButtonContainer,
   SearchButton,
   SearchElement,
   SearchIcon,
@@ -12,38 +11,29 @@ import {
   StyledSelect,
 } from "./styled";
 import MethodButtons from "./MethodButtons";
-import { NextButton } from "../../News/styled";
 
 const SearchNews: React.FC = () => {
+  
   const dispatch = useDispatch();
+
   const [subject, setSubject] = useState("");
   const [sortBy, setSortBy] = useState("relevancy");
   const [pageSize, setPageSize] = useState<number>(10);
   const [country, setCountry] = useState("");
-  const [currentPage, setCurrentPage] = useState<number>(1);
-
   const [selectedMethod, setSelectedMethod] = useState("Global News");
 
-  useEffect(() => {
-    dispatch(
-      fetchNews({
-        subject,
-        country,
-        sortBy,
-        selectedMethod,
-        page: currentPage,
-        pageSize,
-      }) as unknown as PayloadAction<string | [any, any]>
-    );
-  }, []);
+  // useEffect(() => {
+  //   if (!subject) {
+  //     return;
+  //   }
+  // }, [subject]);
 
   const onSearchInputChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSubject(e.target.value);
   };
 
   const onGetNewsBtnClick = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setCurrentPage(1);
+    e.preventDefault(); // prevent form submission
     dispatch(
       fetchNews({
         subject,
@@ -51,7 +41,7 @@ const SearchNews: React.FC = () => {
         sortBy,
         selectedMethod,
         page: 1,
-        pageSize,
+        pageSize: pageSize,
       }) as unknown as PayloadAction<string | [any, any]>
     );
   };
@@ -152,14 +142,6 @@ const SearchNews: React.FC = () => {
     );
   };
 
-  const onNextPageClick = () => {
-    setCurrentPage(currentPage + 1);
-  };
-
-  const onPreviousPageClick = () => {
-    setCurrentPage(currentPage - 1);
-  };
-
   return (
     <div className="SearchNewsContainer">
       <div>
@@ -205,17 +187,9 @@ const SearchNews: React.FC = () => {
             <SearchButton type="submit">Căutați</SearchButton>
           </SearchElement>
         </form>
-        <ButtonContainer>
-          {currentPage > 1 && (
-            <NextButton onClick={onPreviousPageClick}>Previous</NextButton>
-          )}
-          
-            <NextButton onClick={onNextPageClick}>Next</NextButton>
-          
-        </ButtonContainer>
       </div>
     </div>
   );
 };
 
-export default SearchNews;
+export default SearchNews; 
