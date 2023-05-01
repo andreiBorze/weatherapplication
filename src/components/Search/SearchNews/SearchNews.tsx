@@ -33,6 +33,9 @@ const SearchNews: React.FC = () => {
   };
 
   const onGetNewsBtnClick = (e: React.FormEvent<HTMLFormElement>) => {
+   
+  
+   
     e.preventDefault(); // prevent form submission
     dispatch(
       fetchNews({
@@ -44,6 +47,7 @@ const SearchNews: React.FC = () => {
         pageSize: pageSize,
       }) as unknown as PayloadAction<string | [any, any]>
     );
+
   };
 
   type SelectProps = {

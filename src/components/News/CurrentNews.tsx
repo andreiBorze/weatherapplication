@@ -39,7 +39,7 @@ const CurrentNews: React.FC = () => {
         selectedMethod,
       }) as unknown as PayloadAction<string | [any, any]>
     );
-  }, [currentPage, subject, sortBy]);
+  }, [currentPage, sortBy]);
 
   if (isInitial) return <></>;
   return (

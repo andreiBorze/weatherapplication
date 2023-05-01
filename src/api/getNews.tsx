@@ -8,7 +8,7 @@ export const getNews = async (
 ) => {
   let method = "";
   const searchSubject = search || "volvo";
-  const baseUrl = "https://newsapi.org/v2/";
+  const baseUrl = "https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/";
   const globalOp = "everything?q=";
   const topOp = "top-headlines?country=";
   const apiKey = process.env.REACT_APP_REACT_NEWS_API_KEY ?? "default-api-key";
@@ -28,7 +28,7 @@ export const getNews = async (
   try {
     const date = getFormattedDateXMonthsAgo();
     const headers: HeadersInit = {
-      "X-Api-Key": apiKey,
+     "X-Api-Key": apiKey,
     };
 
     const response = await fetch(
