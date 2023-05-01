@@ -1,58 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { ThemeProvider } from "styled-components";
+import { GlobalStyles } from "./app.styled";
+import Home from "./pages/Home";
+import { AppStore } from "./store/store";
+import { darkTheme, lightTheme } from "./theme";
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
+import NewsPage from "./pages/NewsPage";
+import NewDetailsPage from "./components/News/NewsDetailsPage";
+import WeatherPage from "./pages/WeatherPage";
+import SwitchPagesGrid from "./components/SwitchPagesGrid/SwitchPagesGrid";
+import Footer from "./components/Footer/Footer";
+import { setIsInitial, setIsLoading } from "./store/reducers/appReducer";
 
-function App() {
+const App: React.FC = () => {
+  const darkMode = useSelector((state: AppStore) => state.app.darkMode);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+      <GlobalStyles />
+      <BrowserRouter>
+        <SwitchPagesGrid />
+        <Routes>
+          <Route index element={<Navigate to="/weather" />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/weather" element={<WeatherPage />} />
+          <Route path="/news" element={<NewsPage />} />
+          <Route path="/news/:source/:title" element={<NewDetailsPage />} />
+        </Routes>
+      </BrowserRouter>
+      <Footer />
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
