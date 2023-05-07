@@ -16,14 +16,12 @@ export const SectionTitle = styled.h3`
 `;
 export const CurrentWeatherContainer = styled.div`
   display: flex;
-  flex-direction: column-reverse;
-  justify-content: center;
+  flex-direction: "column-reverse",
+  justify-content: "center",
   flex-wrap: wrap;
   justify-content: space-evenly;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
+  @media (max-width: 800px) {
+    justify-content: flex-start;
   }
 `;
 export const CurrentWeatherStatus = styled.div`
@@ -39,11 +37,9 @@ export const CurrentWeatherStatus = styled.div`
   margin: auto;
   margin-top: 30px;
   margin-bottom: 30px;
-
-  @media (max-width: 768px) {
+  @media (max-width: 800px) {
     margin: 2rem 0rem;
   }
-
   h2 {
     margin: 0;
     font-size: 60px;
@@ -52,7 +48,7 @@ export const CurrentWeatherStatus = styled.div`
 `;
 export const CurrentWeatherInfo = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  
   flex-direction: column;
   justify-content: center;
   margin: 2rem 1rem;
