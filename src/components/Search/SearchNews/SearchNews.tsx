@@ -13,7 +13,7 @@ import {
 import MethodButtons from "./MethodButtons";
 
 const SearchNews: React.FC = () => {
-  
+
   const dispatch = useDispatch();
 
   const [subject, setSubject] = useState("");
@@ -22,20 +22,11 @@ const SearchNews: React.FC = () => {
   const [country, setCountry] = useState("");
   const [selectedMethod, setSelectedMethod] = useState("Global News");
 
-  // useEffect(() => {
-  //   if (!subject) {
-  //     return;
-  //   }
-  // }, [subject]);
-
   const onSearchInputChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSubject(e.target.value);
   };
 
   const onGetNewsBtnClick = (e: React.FormEvent<HTMLFormElement>) => {
-   
-  
-   
     e.preventDefault(); // prevent form submission
     dispatch(
       fetchNews({
